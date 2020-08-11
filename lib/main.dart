@@ -2,16 +2,29 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return MyAppState();
+  }
+}
+
+class MyAppState extends State<MyApp> {
+  var anIndex = 0;
+
   void answerQuestion() {
-    print("Answer chosen: ");
+    setState(() {
+      anIndex = anIndex>=2 ? anIndex=0 : anIndex + 1;
+      print("Answer chosen: $anIndex");
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     var questions = [
       'What\'s your favorite color?',
-      'What\'s your favorite animal?'
+      'What\'s your favorite animal?',
+      'What\'s your favorite vehicle'
     ];
 
     return MaterialApp(
@@ -21,13 +34,13 @@ class MyApp extends StatelessWidget {
         ),
         body: Column(
           children: <Widget>[
-            Text("Questions"),
+            Text(questions[anIndex]),
             RaisedButton(
-              child: Text('Answer 1'),
+              child: Text("Answer 1"),
               onPressed: answerQuestion,
             ),
             RaisedButton(
-              child: Text('Answer 2'),
+              child: Text("Answer 2"),
               onPressed: () => print("Answer 2 chosen"),
             ),
             RaisedButton(
